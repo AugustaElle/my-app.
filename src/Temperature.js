@@ -3,9 +3,7 @@ import './Temperature.css';
 
 export default function Temperature () {
 return (
-    <div className="App">
-      <div className="container">
-      <div className="app-wrapping">
+    <div className="Temperature">
      <div className="weather-wrapping">
     <div className="row">
      <div className="col-6">
@@ -15,14 +13,14 @@ return (
              <img src="#" alt="Icon" id="weather-icon"/>
               <h2 className="present-day-temp float-left"> <span id="current-temperature">30</span>°</h2></div>
      </div>
-     <div className="col-5">
+     <div className="col-4">
          <ul>
              <li>Feels Like: <span id="feels-like">  32</span> </li>
              <li>Humidity: <span id="humidity">  20</span>%</li>  
              <li>Wind: <span id="windspeed">  0</span> km/h</li>
          </ul>
      </div>
-     <div className="col-1"> <p>°<a href="#" id="convert-celsius">C</a>|°<a href="#" id="convert-farhenheit">F</a></p></div>
+     <div className="col-2"> <p>°<a href="#" id="convert-celsius">C</a>|°<a href="#" id="convert-farhenheit">F</a></p></div>
     </div>
     <div className="row">
         <div className="col-4">
@@ -42,7 +40,7 @@ return (
         </div>
         </div>  
     </div>      
-    </div></div></div>
+    </div>
   );
 }
 
