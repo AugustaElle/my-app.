@@ -1,0 +1,7 @@
+.weather-wrapping {
+    max-width: 1000px;
+    border: 1px solid  #B1E1F7;
+    margin: 10px auto;
+    padding: 20px;
+    background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);;
+}
