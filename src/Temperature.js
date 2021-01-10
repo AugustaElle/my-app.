@@ -1,23 +1,42 @@
-import React from 'react';
+import React, { useState } from "react";
 import './Temperature.css';
+import axios from 'axios';
+
 
 export default function Temperature () {
+    const [weatherInfo, setWeatherInfo] = useState({input : false});
+
+
+
+    function showTemp(response) {
+        console.log(response.data);
+        setWeatherInfo({
+            input : true,
+        temperature : (Math.round(response.data.main.temp)),
+        city: (response.data.name),
+        date : `Monday 8am`,
+        wind :(response.data.wind.speed),
+        humidity : (Math.round(response.data.main.humidity)),
+        description :(response.data.weather[0].description),
+        feelsLike : (Math.round(response.data.main.feels_like)),});
+    }
+        if (weatherInfo.input) {
 return (
     <div className="Temperature">
      <div className="weather-wrapping">
     <div className="row">
      <div className="col-6">
          <h1 id="current-city">New York</h1>
-         <h2 className="description" id="sky-description">Sunny</h2>
+         <h2 className="description text-capitalize" id="sky-description">{weatherInfo.description}</h2>
         <div className="clearfix">
              <img src="#" alt="Icon" id="weather-icon"/>
-              <h2 className="present-day-temp float-left"> <span id="current-temperature">30</span>°</h2></div>
+              <h2 className="present-day-temp float-left"> <span id="current-temperature">{weatherInfo.temperature}</span>°</h2></div>
      </div>
      <div className="col-4">
          <ul>
-             <li>Feels Like: <span id="feels-like">  32</span> </li>
-             <li>Humidity: <span id="humidity">  20</span>%</li>  
-             <li>Wind: <span id="windspeed">  0</span> km/h</li>
+             <li>Feels Like: <span id="feels-like">  {weatherInfo.feelsLike}</span> </li>
+             <li>Humidity: <span id="humidity">  {weatherInfo.humidity} </span>%</li>  
+             <li>Wind: <span id="windspeed">  {weatherInfo.wind}</span> km/h</li>
          </ul>
      </div>
      <div className="col-2"> <p>°<a href="#" id="convert-celsius">C</a>|°<a href="#" id="convert-farhenheit">F</a></p></div>
@@ -36,11 +55,17 @@ return (
       </form></div></div>
       <div className="row">
         <div className="col">
-          <p>As of 8am EST</p>
+          <p>As of {weatherInfo.date} EST</p>
         </div>
         </div>  
     </div>      
     </div>
   );
-}
+} else {
+    let city = 'New York'
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9bcab27e2586a82d6ff0a45c0b3f6c89&units=metric`;
+        axios.get(url).then(showTemp);
 
+        return `loading..`;
+}
+}
