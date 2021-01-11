@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './Temperature.css';
 import axios from 'axios';
 import UpdatedDate from './UpdatedDate';
+import Conversion from "./Conversion";
 
 export default function Temperature (props) {
     const [weatherInfo, setWeatherInfo] = useState({input : false});
@@ -37,13 +38,6 @@ function searchForm () {
     setCity(event.target.value);
     }
 
-    function convertFarenheit(event) {
-        event.preventDefault();
-        setUnit((weatherInfo.temperature *1.8 + 32));
-    }
-
-  
-
 
         if (weatherInfo.input) {
 return ( 
@@ -58,14 +52,14 @@ return (
               <h2 className="present-day-temp float-left"> <span id="current-temperature">
               {weatherInfo.temperature} </span>°</h2></div>
      </div>
-     <div className="col-4">
+     <div className="col-6">
          <ul>
              <li>Feels Like: <span id="feels-like">  {weatherInfo.feelsLike}</span> </li>
              <li>Humidity: <span id="humidity">  {weatherInfo.humidity} </span>%</li>  
              <li>Wind: <span id="windspeed">  {weatherInfo.wind}</span> km/h</li>
          </ul>
      </div>
-     <div className="col-2"> <p>°<a href="#" id="convert-celsius">C</a>|°<a href="#" id="convert-farhenheit" onClick={convertFarenheit}>F</a></p></div>
+     <div className="col-2"> <Conversion /> </div>
     </div>
     <div className="row">
         <div className="col-4">
