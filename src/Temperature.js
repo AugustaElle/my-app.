@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './Temperature.css';
 import axios from 'axios';
+import UpdatedDate from './UpdatedDate';
 
 
 export default function Temperature () {
@@ -14,7 +15,7 @@ export default function Temperature () {
             input : true,
         temperature : (Math.round(response.data.main.temp)),
         city: (response.data.name),
-        date : `Monday 8am`,
+        date : new Date(response.data.dt * 1000),
         wind :(response.data.wind.speed),
         humidity : (Math.round(response.data.main.humidity)),
         description :(response.data.weather[0].description),
@@ -55,7 +56,7 @@ return (
       </form></div></div>
       <div className="row">
         <div className="col">
-          <p>As of {weatherInfo.date} EST</p>
+          <p>As of: <UpdatedDate date={weatherInfo.date}/></p>
         </div>
         </div>  
     </div>      
