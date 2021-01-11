@@ -3,14 +3,13 @@ import './Temperature.css';
 import axios from 'axios';
 import UpdatedDate from './UpdatedDate';
 
-
-export default function Temperature () {
+export default function Temperature (props) {
     const [weatherInfo, setWeatherInfo] = useState({input : false});
+    const [city, setCity]= useState(props.city)
 
 
 
     function showTemp(response) {
-        console.log(response.data);
         setWeatherInfo({
             input : true,
         temperature : (Math.round(response.data.main.temp)),
@@ -21,6 +20,21 @@ export default function Temperature () {
         description :(response.data.weather[0].description),
         feelsLike : (Math.round(response.data.main.feels_like)),});
     }
+
+function searchForm (){
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9bcab27e2586a82d6ff0a45c0b3f6c89&units=metric`;
+        axios.get(url).then(showTemp);
+}
+
+    function inputCity(event) {
+        event.preventDefault();
+        searchForm();
+    }
+
+    function displayCity (event) {
+    setCity(event.target.value);
+    }
+
         if (weatherInfo.input) {
 return (
     <div className="Temperature">
@@ -44,14 +58,14 @@ return (
     </div>
     <div className="row">
         <div className="col-4">
-  <form id="search-form">
+        <form  id="search-form" onSubmit={inputCity}>
         <input type="text"
         placeholder="Enter city name"
         autocomplete="off"
         autofocus="on"
         id="entered-city"
-        className="form-control"/>
-        <input type="submit"  class="btn btn-dark"
+        className="form-control" onChange={displayCity}/>
+        <input type="submit"  className="btn btn-dark"
         value="Search!"/>
       </form></div></div>
       <div className="row">
@@ -63,10 +77,6 @@ return (
     </div>
   );
 } else {
-    let city = 'New York'
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9bcab27e2586a82d6ff0a45c0b3f6c89&units=metric`;
-        axios.get(url).then(showTemp);
-
-        return `loading..`;
-}
-}
+searchForm();
+return `loading..`;
+            }}
