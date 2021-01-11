@@ -38,6 +38,12 @@ p {
 
 }
 
+img {
+    height: 64px;
+    width: 60px;
+    display: inline-block;
+}
+
 
 .weather-wrapping {
     max-width: 800px;
@@ -52,7 +58,7 @@ p {
    display: inline;
    font-size: 40px;
    line-height: 1;
-   margin: 10px 10px 8px;
+   margin: 10px 0px;
    }
 
 .search-form {

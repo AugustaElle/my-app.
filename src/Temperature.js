@@ -5,25 +5,27 @@ import UpdatedDate from './UpdatedDate';
 
 export default function Temperature (props) {
     const [weatherInfo, setWeatherInfo] = useState({input : false});
-    const [city, setCity]= useState(props.city)
+    const [city, setCity]= useState(props.city);
+    const [unit, setUnit]= useState (`celsius`);
 
 
 
     function showTemp(response) {
         setWeatherInfo({
-            input : true,
+        input : true,
         temperature : (Math.round(response.data.main.temp)),
         city: (response.data.name),
         date : new Date(response.data.dt * 1000),
         wind :(response.data.wind.speed),
         humidity : (Math.round(response.data.main.humidity)),
         description :(response.data.weather[0].description),
-        feelsLike : (Math.round(response.data.main.feels_like)),});
+        icon:`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+        feelsLike : (Math.round(response.data.main.feels_like))});
     }
 
-function searchForm (){
+function searchForm () {
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9bcab27e2586a82d6ff0a45c0b3f6c89&units=metric`;
-        axios.get(url).then(showTemp);
+    axios.get(url).then(showTemp);
 }
 
     function inputCity(event) {
@@ -35,17 +37,26 @@ function searchForm (){
     setCity(event.target.value);
     }
 
+    function convertFarenheit(event) {
+        event.preventDefault();
+        setUnit((weatherInfo.temperature *1.8 + 32));
+    }
+
+  
+
+
         if (weatherInfo.input) {
-return (
+return ( 
     <div className="Temperature">
      <div className="weather-wrapping">
     <div className="row">
      <div className="col-6">
-         <h1 id="current-city">New York</h1>
+         <h1 id="current-city">{city}</h1>
          <h2 className="description text-capitalize" id="sky-description">{weatherInfo.description}</h2>
         <div className="clearfix">
-             <img src="#" alt="Icon" id="weather-icon"/>
-              <h2 className="present-day-temp float-left"> <span id="current-temperature">{weatherInfo.temperature}</span>°</h2></div>
+             <img src={weatherInfo.icon} alt="Icon" id="weather-icon"/>
+              <h2 className="present-day-temp float-left"> <span id="current-temperature">
+              {weatherInfo.temperature} </span>°</h2></div>
      </div>
      <div className="col-4">
          <ul>
@@ -54,7 +65,7 @@ return (
              <li>Wind: <span id="windspeed">  {weatherInfo.wind}</span> km/h</li>
          </ul>
      </div>
-     <div className="col-2"> <p>°<a href="#" id="convert-celsius">C</a>|°<a href="#" id="convert-farhenheit">F</a></p></div>
+     <div className="col-2"> <p>°<a href="#" id="convert-celsius">C</a>|°<a href="#" id="convert-farhenheit" onClick={convertFarenheit}>F</a></p></div>
     </div>
     <div className="row">
         <div className="col-4">
@@ -77,6 +88,6 @@ return (
     </div>
   );
 } else {
-searchForm();
+searchForm () ;
 return `loading..`;
-            }}
+ }}
