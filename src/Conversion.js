@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 
 export default function Conversion (props) {
     return (
         <div>
-<p>°<a href="/" id="convert-celsius">C</a>|°<a href="/" id="convert-farhenheit">F</a></p>
+<p>°C|°F</p>
    </div> );
    } 

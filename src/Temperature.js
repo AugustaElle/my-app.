@@ -7,7 +7,6 @@ import Conversion from "./Conversion";
 export default function Temperature (props) {
     const [weatherInfo, setWeatherInfo] = useState({input : false});
     const [city, setCity]= useState(props.city);
-    const [unit, setUnit]= useState (`celsius`);
 
 
 
