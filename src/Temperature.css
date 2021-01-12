@@ -61,6 +61,10 @@ img {
    margin: 10px 0px;
    }
 
+.conversion {
+    font-size: 14px;
+    font-weight: bold;
+}
 .search-form {
     margin: 10px;
 }

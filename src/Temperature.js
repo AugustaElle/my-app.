@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import './Temperature.css';
 import axios from 'axios';
 import UpdatedDate from './UpdatedDate';
-import Conversion from "./Conversion";
 
 export default function Temperature (props) {
     const [weatherInfo, setWeatherInfo] = useState({input : false});
     const [city, setCity]= useState(props.city);
-
 
 
     function showTemp(response) {
@@ -27,6 +25,8 @@ function searchForm () {
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9bcab27e2586a82d6ff0a45c0b3f6c89&units=metric`;
     axios.get(url).then(showTemp);
 }
+
+
 
     function inputCity(event) {
         event.preventDefault();
@@ -48,8 +48,10 @@ return (
          <h2 className="description text-capitalize" id="sky-description">{weatherInfo.description}</h2>
         <div className="clearfix">
              <img src={weatherInfo.icon} alt="Icon" id="weather-icon"/>
-              <h2 className="present-day-temp float-left"> <span id="current-temperature">
-              {weatherInfo.temperature} </span>°</h2></div>
+             <h2 className="present-day-temp float-left"> <span id="current-temperature">
+{weatherInfo.temperature} </span><span className="conversion">°C|°F</span></h2></div>  <div>
+
+   </div> 
      </div>
      <div className="col-6">
          <ul>
@@ -58,7 +60,6 @@ return (
              <li>Wind: <span id="windspeed">  {weatherInfo.wind}</span> km/h</li>
          </ul>
      </div>
-     <div className="col-2"> <Conversion /> </div>
     </div>
     <div className="row">
         <div className="col-4">
